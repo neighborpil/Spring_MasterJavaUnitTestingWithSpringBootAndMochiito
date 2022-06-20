@@ -13,6 +13,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 public class ListMockTest {
 
@@ -57,6 +58,33 @@ public class ListMockTest {
         verify(mock, atLeastOnce()).get(anyInt());
         verify(mock, atMost(2)).get(anyInt());
         verify(mock, never()).get(2);
+    }
+
+    @Test
+    public void argumentCapturing() {
+        // Some Unit Testing
+        mock.add("Something");
+
+        // verification
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        verify(mock).add(captor.capture());
+
+        assertEquals("Something", captor.getValue());
+    }
+
+    @Test
+    public void argumentCapturing2() {
+        // Some Unit Testing
+        mock.add("SomeString1");
+        mock.add("SomeString2");
+
+        // verification
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        verify(mock, times(2)).add(captor.capture());
+
+        List<String> allValues = captor.getAllValues();
+        assertEquals("SomeString1", allValues.get(0));
+        assertEquals("SomeString2", allValues.get(1));
     }
 
 }
