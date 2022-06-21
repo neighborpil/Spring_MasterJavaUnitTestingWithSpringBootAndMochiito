@@ -7,10 +7,12 @@ import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -87,4 +89,38 @@ public class ListMockTest {
         assertEquals("SomeString2", allValues.get(1));
     }
 
+    @Test
+    public void moking() {
+        ArrayList arrayListMock = mock(ArrayList.class);
+        System.out.println(arrayListMock.get(0));// null
+        System.out.println(arrayListMock.size()); // 0
+        System.out.println(arrayListMock.add("Test"));
+        System.out.println(arrayListMock.add("Test2"));
+        System.out.println(arrayListMock.size()); // 0
+        when(arrayListMock.size()).thenReturn(5);
+        System.out.println(arrayListMock.size()); // 5
+    }
+
+    @Test
+    public void spying() {
+        ArrayList arrayListSpy = spy(ArrayList.class); // doing as a real instance
+        arrayListSpy.add("Test0");
+        System.out.println(arrayListSpy.get(0));// Test0
+        System.out.println(arrayListSpy.size()); // 1
+        System.out.println(arrayListSpy.add("Test"));
+        System.out.println(arrayListSpy.add("Test2"));
+        System.out.println(arrayListSpy.size()); // 3
+        when(arrayListSpy.size()).thenReturn(5); // lose the original value
+        System.out.println(arrayListSpy.size()); // 5
+        arrayListSpy.add("Test4");
+        System.out.println(arrayListSpy.size()); // 5
+
+        verify(arrayListSpy).add("Test4");
+    }
+
 }
+
+
+
+
+
