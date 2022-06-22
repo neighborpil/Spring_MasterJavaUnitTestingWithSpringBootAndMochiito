@@ -28,7 +28,7 @@ Spring Boot projects with versions >= 2.2.0 use JUnit 5 by default.
 ## 특정 application.properties를 사용하는 방법
 ### 1. /test/resources/application.properties 파일을 생서하고 거기에 오버라이딩해서 내용을 적는다
 ### 2. 클래스 위에 @TestPropertySource를 적는다
-'''
+```
 package com.neighborpil.unittesting.unittesting;
 
 import org.junit.jupiter.api.Test;
@@ -44,5 +44,6 @@ class UnitTestingApplicationTests {
 	}
 
 }
+```
 
-'''
+
